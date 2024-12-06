@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
         const result = await bcrypt.compare(password, user.password);
 
         if(!result){
-            res.send(404).send('Password does not match our record');
+            res.status(404).send('Password does not match our record');
 
             return;
         }
@@ -42,10 +42,12 @@ exports.register = async (req, res) => {
 
     const {email, password, confirmPassword} = req.body;
 
-    try {
-        const existingUser = AttendanceManager.findOne({email});
+    console.log(req.body);
 
-        if (existingUserser){
+    try {
+        const existingUser = await AttendanceManager.findOne({email});
+
+        if (existingUser){
             res.status(400).json('Email already exists.');
         }
 
