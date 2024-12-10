@@ -28,7 +28,9 @@ exports.login = async (req, res) => {
         const token = jwt.sign({ id: user._id.toString()}, secret, {expiresIn: '5m'});
 
         //Create a cookie and place the JWT inside of it
-        res.cookie('jwt', token, { maxAge: 5*60*1000, httpOnly: true} );
+        res.cookie('jwt', token, { maxAge: 5 * 60 * 1000, httpOnly: true} );
+
+        res.redirect('/attendance');
 
 
     } catch (error) {
